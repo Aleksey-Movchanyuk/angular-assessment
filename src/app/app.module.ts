@@ -7,9 +7,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DemoMaterialModule } from './material-module';
 
+import { MasterComponent } from './master/master.component';
+import { DetailComponent } from './detail/detail.component';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MasterComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,
