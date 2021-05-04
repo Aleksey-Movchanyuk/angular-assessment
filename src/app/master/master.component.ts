@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MasterComponent implements OnInit {
 
+  n = 4;
+  s = 18;
+  k = 2;
+
+  selectedBlock: number = -1;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  selectedBlockUpdate(blockIndex: number) {
+    this.selectedBlock = blockIndex;
+
   }
 
 }

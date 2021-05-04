@@ -1,22 +1,23 @@
 <div style="padding: 50px 50px 50px 50px;">
 
-    <mat-form-field appearance="fill" style="padding-right: 5px;">
+    <h3>
+        Selected block index: {{selectedBlock}}
+    </h3>
+
+    <mat-form-field  appearance="fill" style="padding-right: 5px;" >
       <mat-label>N Parameter</mat-label>
-      <input matInput>
+      <input [(ngModel)]="n" matInput >
     </mat-form-field>
-    <mat-form-field appearance="fill" style="padding-right: 5px;">
+    <mat-form-field appearance="fill" style="padding-right: 5px;" name="s">
       <mat-label>S Parameter</mat-label>
-      <input matInput>
+      <input [(ngModel)]="s" matInput >
     </mat-form-field>
-    <mat-form-field appearance="fill" style="padding-right: 5px;">
+    <mat-form-field appearance="fill" style="padding-right: 5px;" name="k">
       <mat-label>K Parameter</mat-label>
-      <input matInput>
+      <input [(ngModel)]="k" matInput >
     </mat-form-field>
-
-    <button mat-raised-button color="primary">Start</button>
-
 
   </div>
 
-  <app-detail>
+  <app-detail [n]="n" [s]="s" [k]="k" (selectedBlockUpdate)="selectedBlockUpdate($event)">
   </app-detail>

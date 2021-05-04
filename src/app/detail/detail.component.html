@@ -1,8 +1,36 @@
-<div style="padding: 50px 50px 50px 50px; width: 600px;">
-    <mat-grid-list cols="4" rowHeight="50px" >
-      <mat-grid-tile>1</mat-grid-tile>
-      <mat-grid-tile>2</mat-grid-tile>
-      <mat-grid-tile>3</mat-grid-tile>
-      <mat-grid-tile>4</mat-grid-tile>
-    </mat-grid-list>
-  </div>
+<ng-template [ngIf]="disperseResult==true" [ngIfElse]="noResults">
+    <div style="padding: 50px 50px 50px 50px; width: 600px;">
+        <table style="height:50px; width: 600px;">
+            <tr>
+                <th *ngFor="let item of myArray; let i = index"
+                    [ngStyle]="{
+                        'background-color': isOdd(i) ? 'lightblue' : 'blue', 
+                        'width': isOdd(i) ? oddBlockWidth.toString()+'%' : evenBlockWidth.toString()+'%'
+                    }"
+                    (click)="updateParent(i)"
+                >
+                    <ng-template [ngIf]="isOdd(i)" [ngIfElse]="even">
+                        <div>
+                            {{oddInteger}}
+                        </div>
+                    </ng-template>
+                        
+                    <ng-template #even>
+                        <div>
+                            {{evenInteger}}
+                        </div>
+                    </ng-template>
+                </th>
+
+            </tr>
+        </table>
+    </div>
+</ng-template>
+
+<ng-template #noResults>
+    <div style="padding: 50px 50px 50px 50px; width: 600px;">
+        <h2 style="color: brown;">
+            not able to disperse
+        </h2>
+    </div>
+</ng-template>
