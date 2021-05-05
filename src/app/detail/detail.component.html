@@ -9,19 +9,22 @@
                     }"
                     (click)="updateParent(i)"
                 >
-                    <ng-template [ngIf]="isOdd(i)" [ngIfElse]="even">
+                    <ng-template [ngIf]="isOdd(i)" [ngIfElse]="evenBlock">
                         <div>
-                            {{oddInteger}}
+                            {{odd}}
                         </div>
                     </ng-template>
                         
-                    <ng-template #even>
+                    <ng-template #evenBlock>
                         <div>
-                            {{evenInteger}}
+                            {{even}}
                         </div>
                     </ng-template>
                 </th>
 
+                <th>
+                    {{reminder}}
+                </th>
             </tr>
         </table>
     </div>

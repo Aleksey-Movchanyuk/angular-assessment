@@ -18,8 +18,9 @@ export class DetailComponent implements OnChanges, OnInit {
   evenBlockWidth = 15;
   oddBlockWidth = 35;
 
-  evenInteger = 3
-  oddInteger = 6;
+  even = 3
+  odd = 6;
+  reminder = 0;
 
   disperseResult = true;
 
@@ -56,33 +57,79 @@ export class DetailComponent implements OnChanges, OnInit {
     }
 
     if (!firstChanges) 
-      this.mainLogic()
+      this.allocation()
   }
 
   ngOnInit() {
-    this.mainLogic()
+    this.allocation()
   }
 
-  mainLogic() {
+  allocation() {
+
+    // cast to numbers
+    this.n = Number(this.n);
+    this.s = Number(this.s);
+    this.k = Number(this.k);
+
     // generate new empty array with N blocks
     this.myArray = new Array(Number(this.n)) 
 
-    // calculate even, odd blocks width
-    this.oddBlockWidth = ((100 / this.n) * 1.25)
-    this.evenBlockWidth = this.oddBlockWidth / 2
+    switch(this.n) {
+      case 1:
+        // calculate even, odd blocks width
+        this.evenBlockWidth = 100;
 
-    // calculate even, odd blocks integer
-    this.oddInteger = this.isOdd(Math.ceil(Math.trunc(this.s / this.n) * (1 + (1 / this.k)))) ? 
-                        Math.ceil(Math.trunc(this.s / this.n) * (1 + (1 / this.k))) + 1: Math.ceil(Math.trunc(this.s / this.n) * (1 + (1 / this.k)));
-    this.evenInteger = this.oddInteger / this.k
+        // allocation logic
+        this.even = this.s;
 
-    if (!this.isInt(this.evenInteger ))
-      this.disperseResult = false;
-    else 
-      this.disperseResult = true;
+        break;
+
+      case 2:
+        // calculate even, odd blocks width
+        this.oddBlockWidth = (100 / this.n) * 1.25;
+        this.evenBlockWidth = this.oddBlockWidth / 2;
+
+        // allocation logic
+        this.even = this.s / (this.k + 1);
+        this.odd = this.even * this.k;
+
+        // check final result
+        if (!this.isInt(this.even) || !this.isInt(this.odd))
+          this.disperseResult = false;
+        else 
+          this.disperseResult = true;
+          
+        break;
+
+      default:
+        // calculate even, odd blocks width
+        this.oddBlockWidth = (100 / this.n) * 1.25;
+        this.evenBlockWidth = this.oddBlockWidth / 2;
+
+        // allocation logic
+        let amountOfBlockParts = Math.trunc((this.n / 2) + (this.n * this.k) / 2);
+
+        this.even = Math.trunc(this.s / amountOfBlockParts)
+        this.odd = this.even * this.k;
+
+
+        // check if result have the reminder
+        if (!this.isInt(this.s / amountOfBlockParts))
+          this.reminder = this.s - (this.even * (this.n + Math.trunc(this.n / this.k)));
+        else 
+          this.reminder = 0;
+
+        if (!this.isInt(this.even) || !this.isInt(this.odd) || !this.isInt(this.reminder))
+          this.disperseResult = false;
+        else 
+          this.disperseResult = true;
+
+        break;
+
+    }
   }
 
-  isOdd(num: number) { return num % 2;}
+  isOdd(num: number) { return num % 2; }
 
   isInt(num: number) { return num % 1 === 0; }
 
